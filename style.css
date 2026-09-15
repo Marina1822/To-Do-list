@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #689c91;
+
+    display: flex;
+    justify-content: center;
+    min-height: 75vh;
+    align-items: center;
+
+    }
+    
+.todo-container {
+
+    background-color: rgb(213, 243, 223);
+    width: 90%;
+    max-width: 50%;
+    padding: 30px;
+    border-radius: 50px;
+    
+   
+   
+}
+  h1 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+input {
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+button {
+    padding: 5px 5px;
+    background-color: #df8a2a;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    cursor: pointer;
+    margin-left: 80px;
+    letter-spacing: 0px;
+    
+}
+
+
+
+  .add-btn {
+        background-color: #4CAF50;
+        
+        padding: 1px 5px;
+        margin-bottom: 60px;
+        margin-left: 40px;
+        margin-right: 40%;
+        size: 20px;
+        font-size: 18px;
+        min-width: 20px;
+    }
+    
+    
+   .delete-btn  {
+        background-color: #f44336;
+
+        padding: 10px 5px;
+    }  
+
+
+ul {
+   list-style-type: None;
+   list-style-type:none;
+    padding: 20px
+}
+
+li {
+    background-color: #82e77f;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 10px;
+
+}
+.completed {
+    text-decoration: line-through;
+    color: #888;
+    opacity: 0.6;
+}
+
+
+li {
+    background-color: #f8f8fc;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+li::before {
+    content: "○";
+    margin-right: 10px;
+}
+
+li.completed::before {
+    content: "✓";
+}
+
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: rgb(202, 30, 30);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.deleteButton {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 1px 1px;
+    cursor: pointer;
+    margin-left: 10px;
+    size: 5px;
+}
