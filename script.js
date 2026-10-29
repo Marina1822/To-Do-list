@@ -1,128 +1,177 @@
-<<<<<<< HEAD
-//alert("this is my new to-do list");
 
-//consttaskInput = document.querySelector("#taskInput");
+async function addTask() {
+    const taskInput = document.querySelector("input");
+    const taskText = taskInput.value.trim();
 
- function addTask() {
-  const taskText = taskInput.value.trim()};
+    if (taskText === "") {
+        return;
+    }
+    const response = await fetch("http://localhost:5256/todos", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        title: taskText,
+        isCompleted: false
+    })
+});
 
-//var taskList = document.querySelector("#taskList");
-
-
-
-function addTask() { 
-     const taskInput = document.querySelector("input");
-     const taskText = taskInput.value;
-
-     if (taskText.trim() === "") {
+ if (!response.ok) {
+    console.error("Failed to create task");
     return;
 }
 
-     const task = document.createElement("li");
-     task.textContent = taskText;
+    const newTask = await response.json();
 
-     const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
+    const task = document.createElement("li");
+    task.textContent = newTask.title;
 
-   task.appendChild(deleteButton);
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
 
- deleteButton.addEventListener("click", function () {
+    task.appendChild(deleteButton);
+
+    deleteButton.addEventListener("click", async function(event) {
+    event.stopPropagation();
+
+    const response = await fetch(
+        `http://localhost:5256/todos/${newTask.id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    if (!response.ok) {
+        console.error("Failed to delete task");
+        return;
+    }
+
     task.remove();
 });
 
-     const taskList = document.querySelector("ul");
-     taskList.appendChild(task);
- 
-     taskInput.value = "";
+    task.addEventListener("click", async function() {
 
-     task.addEventListener("click", function() {
-      task.classList.toggle("completed");
-      
+    const response = await fetch(
+        `http://localhost:5256/todos/${newTask.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: newTask.title,
+                isCompleted: !newTask.isCompleted
+            })
+        }
+    );
 
-})}
+    if (!response.ok) {
+        console.error("Failed to update task");
+        return;
+    }
 
+    const updatedTask = await response.json();
 
-function deleteTask() {
-  const taskList = document.querySelector("ul");
-  const lastTask = taskList.lastChild;
+    newTask.isCompleted = updatedTask.isCompleted;
 
+    task.classList.toggle("completed", newTask.isCompleted);
 
-  
-
-  if (lastTask) {
-    taskList.removeChild(lastTask);
-  }
-
-  //const task = document.deleteTask("li");
-  //taskList.appendChild(task);
-}
-
-deleteButton.addEventListener("click", function(event) {
-         event.stopPropagation();
-         task.remove();
-
-=======
-//alert("this is my new to-do list");
-
-//consttaskInput = document.querySelector("#taskInput");
-
- function addTask() {
-  const taskText = taskInput.value.trim()};
-
-//var taskList = document.querySelector("#taskList");
-
-
-
-function addTask() { 
-     const taskInput = document.querySelector("input");
-     const taskText = taskInput.value;
-
-     if (taskText.trim() === "") {
-    return;
-}
-
-     const task = document.createElement("li");
-     task.textContent = taskText;
-
-     const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-
-   task.appendChild(deleteButton);
-
- deleteButton.addEventListener("click", function () {
-    task.remove();
 });
+         // 1. Send a PUT request
 
-     const taskList = document.querySelector("ul");
-     taskList.appendChild(task);
- 
-     taskInput.value = "";
+    // 2. Check response.ok
 
-     task.addEventListener("click", function() {
-      task.classList.toggle("completed");
-      
+    // 3. Read the updated task from the response
 
-})}
+    // 4. Update newTask.isCompleted
 
+    // 5. Update the CSS class
+       // task.classList.toggle("completed");
+       // newTask.isCompleted = !newTask.isCompleted;
+    
 
-function deleteTask() {
-  const taskList = document.querySelector("ul");
-  const lastTask = taskList.lastChild;
+    const taskList = document.querySelector("ul");
+    taskList.appendChild(task);
 
-
-  
-
-  if (lastTask) {
-    taskList.removeChild(lastTask);
-  }
-
-  //const task = document.deleteTask("li");
-  //taskList.appendChild(task);
+    taskInput.value = "";
 }
 
-deleteButton.addEventListener("click", function(event) {
-         event.stopPropagation();
-         task.remove();
+function deleteTask() {
+    const taskList = document.querySelector("ul");
+    const lastTask = taskList.lastElementChild;
 
->>>>>>> 07fab3e (Initial To-Do List project)
-         })
+    if (lastTask) {
+        taskList.removeChild(lastTask);
+    }
+}
+
+async function loadTasks() {
+    const response = await fetch("http://localhost:5256/todos");
+    const tasks = await response.json();
+
+    console.log(tasks);
+
+    for (const task of tasks) {
+        const taskElement = document.createElement("li");
+        taskElement.textContent = task.title;
+
+    if (task.isCompleted) {
+        taskElement.classList.add("completed");
+}
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+
+        taskElement.appendChild(deleteButton);
+
+        deleteButton.addEventListener("click", async function(event) {
+            event.stopPropagation();
+            const response = await fetch(
+                `http://localhost:5256/todos/${task.id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Failed to delete task:", errorData);
+                return;
+            }
+
+            taskElement.remove();
+        });
+
+        taskElement.addEventListener("click", async function() {
+            const response = await fetch(
+                `http://localhost:5256/todos/${task.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        title: task.title,
+                        isCompleted: !task.isCompleted
+                    })
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Failed to update task:", errorData);
+                return;
+            }
+
+            const updatedTask = await response.json();
+task.isCompleted = updatedTask.isCompleted;
+taskElement.classList.toggle("completed", task.isCompleted);
+        });
+
+        const taskList = document.querySelector("ul");
+        taskList.appendChild(taskElement);
+    }
+}
+
+loadTasks();

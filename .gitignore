@@ -1,0 +1,17 @@
+# .NET build files
+**/bin/
+**/obj/
+
+# Local development files
+**/appsettings.Development.json
+.env
+.env.*
+
+# IDE settings
+.vs/
+.vscode/
+
+# Local SQL Server files
+*.mdf
+*.ldf
+*.ndf
