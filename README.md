@@ -73,10 +73,13 @@ The backend must be running for the frontend to communicate with the API.
 
 ## Project Status
 
-Core CRUD functionality and SQL Server persistence have been implemented and tested locally.
+**Completed — Local Full-Stack Application**
 
-GitHub documentation and public deployment are being finalized.
+The application has been developed and tested locally, including all five REST API endpoints and SQL Server data persistence.
 
+The source code, database migrations, setup instructions, and application screenshots are provided in this repository for portfolio review.
+
+This project is not publicly hosted. Developers can run it locally by following the setup instructions.
 ## Future Improvements
 
 - Improved error handling
