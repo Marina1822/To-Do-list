@@ -13,6 +13,19 @@ This project was developed to practice full-stack application development, RESTf
 - Save tasks permanently in SQL Server
 - Retrieve saved tasks after restarting the backend
 
+## Application Screenshots
+
+### Task List
+![Task List](screenshots/task-list.png)
+
+### Completed Tasks
+![Completed Tasks](screenshots/completed-task.png)
+
+### Task Deletion
+![Task Deletion](screenshots/deleted-task.png)
+
+
+
 ## Technologies Used
 
 **Frontend**
